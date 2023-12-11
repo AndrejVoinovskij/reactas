@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useId } from "react"
+let articleId = 0
 
 const AddArticle = (props)=>{
     const [formData, setFormdata] = useState(
@@ -20,6 +20,8 @@ const AddArticle = (props)=>{
     }
 
     const submitHandler = (event)=>{
+        articleId += 1
+        formData.id = articleId
         event.preventDefault();
         props.onSave(formData)
     }
@@ -32,7 +34,7 @@ const AddArticle = (props)=>{
                 </input>
             </div>
             <div className="form-group">
-                <textarea name="description" placeholder="Naujienos tekstas" className="m-1 form-control" onChange={handleChange}></textarea>
+                <textarea name="description" placeholder="Naujienos tekstas" className="m-1 form-control" onChange={handleChange} value={formData.description}/>
             </div>
             <div className="form-group">
                 <button type="submit" className="btn btn-primary">Saugoti</button>
