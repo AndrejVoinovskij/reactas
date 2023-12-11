@@ -6,10 +6,22 @@ import AddArticle from "../AddArticle/AddArticle";
 const Main = ()=>{
     const [clicked,setClicked] = useState(false);
     const [posts,setPosts] = useState([]);
-    const handleClick = ()=>{
-        setClicked(true)
+    const [showForm, setShowForm] = useState(false);
+    const showNewsForm = ()=>{
+        setShowForm(true)
     }
-    console.log(clicked)
+    const hideNewsForm = ()=>{
+        setShowForm(false)
+    }
+    const handleClick = ()=>{
+        if (clicked === false){
+            setClicked(true)
+        }
+        else{
+            setClicked(false)
+        }
+    }
+    
     const handleFormData = (data)=>{
         setPosts((prevData)=>{
             return[data,...prevData]
@@ -21,18 +33,22 @@ const Main = ()=>{
     return(
     <main>
         <div className="container">
+            <button onClick={showNewsForm} className="btn btn-primary">Pateikti Naujiena</button>
             <h1>Naujienos</h1>
             {posts.map((post)=>
             <Article key={post.id} tittle={post.title} description={post.description}/>
             )}
             <button onClick={handleClick}>PASPAUDZIAU</button>
-            {clicked ? <h1>Mygtukas paspaustas</h1>:<div>kazkas kitas</div>} 
+            {clicked ? <h1>Mygtukas paspaustas</h1>:<div>kazkas kitas</div>}
+
+            {showForm &&
+            <div>
+                <h2>Prideti naujiena</h2>
+                <AddArticle onSave={handleFormData} hideForm={hideNewsForm}/>
+            </div>}
         </div>
 
-        <div>
-            <h2>Prideti naujiena</h2>
-            <AddArticle onSave={handleFormData}/>
-        </div>
+      
     </main>    
   );
 }

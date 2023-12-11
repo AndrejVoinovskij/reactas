@@ -24,6 +24,7 @@ const AddArticle = (props)=>{
         formData.id = articleId
         event.preventDefault();
         props.onSave(formData)
+        props.hideForm()
     }
 
     console.log(formData)
